@@ -1,1 +1,7 @@
-/* prueba 2*/
+/*Jose Palacios
+Pre-entrega 1 JS 
+Encuentra la culebra
+*/
+
+
+

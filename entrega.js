@@ -4,32 +4,86 @@ Encuentra el conejo
 */
 
 
+let intentoNumero = 1;
+let acertar = false;
+let direccion;
 
-
-const campo = []; // de 0 a 50
-for (i = 0; i <= 50; i++) {
+const campo = []; // Array de 0 a 20 llenado con booleano false - Registra las posiciones usadas (posicion 0 no sera usada)
+for (i = 0; i <= 20; i++) {
   campo[i]=false;
 }
 
-function getRandomInt(max) {   // funcion que obtiene un numero aleatorio entre 0 y 50
-    return Math.floor(Math.random() * max);
+function InicioLugar(max) {   // funcion que obtiene un numero aleatorio para definir donde inicia el conejo
+  return Math.floor(Math.random() * max);
 
+}
+
+function saltos() {   // funcion que define cuantos lugares salta en cada turno y hacia donde
+  let cuantobrinca = Math.floor(Math.random() * 4);  // definiendo cunatos espacios salta (entre 0 y 3)
+  let Ndireccion = Math.floor(Math.random() * 2);  // definiendo direccion del salto 
+  if (Ndireccion==0) {
+    direccion = "izquierda";
+  } else {
+    direccion = "derecha";
   }
+  //console.log(direccion);
+  //console.log(cuantobrinca);
 
-lugar = getRandomInt(50);
-campo[lugar]=true;
-console.table(campo);
+  
+
+}
+
+let lugardondeesta = InicioLugar(20)+1;  // para eliminar la posicion 0 y quede rango de 1 a 20
+console.log(lugardondeesta);  //posicion donde se encuentra el conejo     
 
 
-intentoNumero = 1;
 
-//alert("Bienvenido al juego de la culebra \nDebes descubrir donde esta el conejo"); 
+
+
+
+
+
+
+
+/* 
+************************************************************
+Inicio del juego
+************************************************************
+*/
+
+alert("Bienvenido al juego de la culebra \nDebes descubrir donde esta el conejo"); 
  
 
-
 do {
-  intento = prompt("Intento", intentoNumero + " Escribe un numero del 0 al 50 donde creas que está el conejo");  // propmt
+
+  console.table(campo); // ver la tabla en consola
+
+  let intento = prompt("Escribe un numero del 1 al 20 donde creas que está el conejo"); 
+  if (intento == lugar) {
+    acertar = true;
+    alert("Acertaste");
+    alert("Numero de intentos " + intentoNumero);
+    
+  } else {
+
+    intentoNumero ++;
+    campo[intento-1]=true;
+
+
+    if (intento > lugar) {
+
+      alert("El conejo esta a la izquierda: entre 1 y "+ intento );
+      saltos();
+      
+    } else {
+
+      alert("El conejo esta a la derecha: entre " + intento + " y 20" );
+      saltos();
+      
+    }
+
+
+
+  }
   
-} while (  );
-
-
+} while (!acertar);

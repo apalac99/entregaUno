@@ -1,4 +1,4 @@
-/*Jose Palacios
+/*Jose Palacios          
 Pre-entrega 1 JS 
 Encuentra el conejo
 */
@@ -6,7 +6,7 @@ Encuentra el conejo
 
 let intentoNumero = 1;
 let acertar = false;
-let direccion;
+
 
 const campo = []; // Array de 0 a 20 llenado con booleano false - Registra las posiciones usadas (posicion 0 no sera usada)
 for (i = 0; i <= 20; i++) {
@@ -18,18 +18,59 @@ function InicioLugar(max) {   // funcion que obtiene un numero aleatorio para de
 
 }
 
+function quieto(){
+  alert ("El conejo se ha quedado en el mismo lugar");
+  console.log(lugardondeesta);
+}
+
+
 function saltos() {   // funcion que define cuantos lugares salta en cada turno y hacia donde
   let cuantobrinca = Math.floor(Math.random() * 4);  // definiendo cunatos espacios salta (entre 0 y 3)
   let Ndireccion = Math.floor(Math.random() * 2);  // definiendo direccion del salto 
-  if (Ndireccion==0) {
-    direccion = "izquierda";
-  } else {
-    direccion = "derecha";
-  }
-  //console.log(direccion);
-  //console.log(cuantobrinca);
-
   
+  if (cuantobrinca == 0 
+    || Ndireccion==0 &&  (lugardondeesta - cuantobrinca)<1 
+    || Ndireccion==1 &&  (lugardondeesta + cuantobrinca)>20
+  ) {
+
+    quieto()
+
+  } else {
+
+
+    if (Ndireccion==0) {       // izquierda
+
+      if (campo[lugardondeesta - cuantobrinca]==true) {
+
+
+
+        quieto()
+        
+      } else {
+        lugardondeesta = lugardondeesta - cuantobrinca;
+        alert ( "Ahora el conejo ha saltado "+ cuantobrinca+ " espacios a la izquierda")
+        console.log(lugardondeesta);
+        
+      }
+    
+  
+    } else {   // derecha
+
+      if (campo[lugardondeesta + cuantobrinca]==true) {
+
+        quieto()
+        
+      } else {
+
+      lugardondeesta = lugardondeesta + cuantobrinca;
+      alert ( "Ahora el conejo ha saltado "+ cuantobrinca+ " espacios a la derecha")
+      console.log(lugardondeesta);
+        
+      }     
+  
+    }
+
+  }
 
 }
 
@@ -45,13 +86,12 @@ console.log(lugardondeesta);  //posicion donde se encuentra el conejo
 
 
 
-/* 
-************************************************************
+/*************************************************************
 Inicio del juego
-************************************************************
-*/
+*************************************************************/
 
-alert("Bienvenido al juego de la culebra \nDebes descubrir donde esta el conejo"); 
+alert("Bienvenido al juego del conejo \nDescubre donde esta el conejo"); 
+alert("Instrucciones \nDebes descubrir donde esta el conejo \nEl conejo algunas veces cambia de posición, pero nunca brincará a una posición que ya seleccionaste "); 
  
 
 do {
@@ -59,7 +99,7 @@ do {
   console.table(campo); // ver la tabla en consola
 
   let intento = prompt("Escribe un numero del 1 al 20 donde creas que está el conejo"); 
-  if (intento == lugar) {
+  if (intento == lugardondeesta) {
     acertar = true;
     alert("Acertaste");
     alert("Numero de intentos " + intentoNumero);
@@ -67,17 +107,17 @@ do {
   } else {
 
     intentoNumero ++;
-    campo[intento-1]=true;
+    campo[intento]=true;
 
 
-    if (intento > lugar) {
+    if (intento > lugardondeesta) {
 
-      alert("El conejo esta a la izquierda: entre 1 y "+ intento );
+      alert("Réstale" );
       saltos();
       
     } else {
 
-      alert("El conejo esta a la derecha: entre " + intento + " y 20" );
+      alert("Súmale");
       saltos();
       
     }

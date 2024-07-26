@@ -15,6 +15,8 @@
 let intentoNumero = 1;
 let acertar = false;
 
+traerRecord = localStorage.getItem("record");
+
 const campo = []; // Array de 0 a 20 llenado con booleano false - Registra las posiciones usadas (posicion 0 no sera usada)
 for (i = 0; i <= 20; i++) {
   campo[i]=false;
@@ -50,49 +52,49 @@ function verificarDatos(){
       return numeroElegido;     
   }
 
-function quieto(){
+function conejoQuieto(){
   alert ("El conejo se ha quedado en el mismo lugar");
-  console.log(lugardondeesta);
+  console.log(lugarDondeEsta);
 }
 
-function saltos() {   // funcion que define cuantos lugares salta en cada turno y hacia donde
-  let cuantobrinca = Math.floor(Math.random() * 4);  // definiendo cunatos espacios salta (entre 0 y 3)
-  let Ndireccion = Math.floor(Math.random() * 2);  // definiendo direccion del salto 
+function cuantosSaltos() {   // funcion que define cuantos lugares salta en cada turno y hacia donde
+  let cuantoSalta = Math.floor(Math.random() * 4);  // definiendo cunatos espacios salta (entre 0 y 3)
+  let direcciondeSalto = Math.floor(Math.random() * 2);  // definiendo direccion del salto 
   
-  if (cuantobrinca == 0 
-    || Ndireccion==0 &&  (lugardondeesta - cuantobrinca)<1 
-    || Ndireccion==1 &&  (lugardondeesta + cuantobrinca)>20
+  if (cuantoSalta == 0 
+    || direcciondeSalto==0 &&  (lugarDondeEsta - cuantoSalta)<1 
+    || direcciondeSalto==1 &&  (lugarDondeEsta + cuantoSalta)>20
   ) {
 
-    quieto()
+    conejoQuieto()
 
   } else {
 
-    if (Ndireccion==0) {       // izquierda
+    if (direcciondeSalto==0) {       // izquierda
 
-      if (campo[lugardondeesta - cuantobrinca]==true) {
+      if (campo[lugarDondeEsta - cuantoSalta]==true) {
 
-        quieto()
+        conejoQuieto()
         
       } else {
-        lugardondeesta = lugardondeesta - cuantobrinca;
-        alert ( "Ahora el conejo ha saltado "+ cuantobrinca+ " espacios a la izquierda")
-        console.log(lugardondeesta);
+        lugarDondeEsta = lugarDondeEsta - cuantoSalta;
+        alert ( "Ahora el conejo ha saltado "+ cuantoSalta+ " espacios a la izquierda")
+        console.log(lugarDondeEsta);
         
       }
     
   
     } else {   // derecha
 
-      if (campo[lugardondeesta + cuantobrinca]==true) {
+      if (campo[lugarDondeEsta + cuantoSalta]==true) {
 
-        quieto()
+        conejoQuieto()
         
       } else {
 
-      lugardondeesta = lugardondeesta + cuantobrinca;
-      alert ( "Ahora el conejo ha saltado "+ cuantobrinca+ " espacios a la derecha")
-      console.log(lugardondeesta);
+      lugarDondeEsta = lugarDondeEsta + cuantoSalta;
+      alert ( "Ahora el conejo ha saltado "+ cuantoSalta+ " espacios a la derecha")
+      console.log(lugarDondeEsta);
         
       }     
   
@@ -102,9 +104,11 @@ function saltos() {   // funcion que define cuantos lugares salta en cada turno 
 
 }
 
-let lugardondeesta = InicioLugar(20)+1;  // para eliminar la posicion 0 y quede rango de 1 a 20
-console.log("El conejo esta en la posicion "+lugardondeesta);  //posicion donde se encuentra el conejo     
 
+
+let lugarDondeEsta = InicioLugar(20)+1;  // para eliminar la posicion 0 y quede rango de 1 a 20
+console.log("El conejo esta en la posicion "+lugarDondeEsta);  //posicion donde se encuentra el conejo     
+console.log("El record es "+ traerRecord);  // record   
 
 
 
@@ -128,10 +132,24 @@ function run(){
 
   let intento = verificarDatos(); 
 
-  if (intento == lugardondeesta) {
+  if (intento == lugarDondeEsta) {
     acertar = true;
     alert("Acertaste");
     alert("Numero de intentos " + intentoNumero);
+
+
+
+    if (traerRecord == null || traerRecord > intentoNumero) {
+      
+      localStorage.setItem("record", intentoNumero);
+
+      alert(` *********** Nuevo record *********** \n - ${intentoNumero} intentos`)
+
+      
+    } 
+
+    
+
     setTimeout(function() {
       location.reload(); // Reinicia el juego despues de 200 ms
   }, 200);
@@ -141,15 +159,15 @@ function run(){
     intentoNumero ++;
     campo[intento]=true;
 
-    if (intento > lugardondeesta) {
+    if (intento > lugarDondeEsta) {
 
       alert("Réstale" );
-      saltos();
+      cuantosSaltos();
       
     } else {
 
       alert("Súmale");
-      saltos();     
+      cuantosSaltos();     
     }
   } 
 } while (!acertar);

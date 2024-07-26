@@ -26,28 +26,28 @@ function InicioLugar(max) {   // funcion que obtiene un numero aleatorio para de
 }
 
 function verificarDatos(){
-  let x = prompt("Escribe un numero del 1 al 20 donde creas que está el conejo");
+  let numeroElegido = prompt("Escribe un numero del 1 al 20 donde creas que está el conejo");
 
-  if (!isNaN(x)) {     // si elige un número
+  if (!isNaN(numeroElegido)) {     // si elige un número
 
-      while (x < 1 || x > 20 || isNaN(x)) {   //opciones por si elige despues de un numero no valido, un NaN      
-          x = prompt("No es un número válido. \nDebe ser entre 1 y 20. Intenta de nuevo");
+      while (numeroElegido < 1 || numeroElegido > 20 || isNaN(numeroElegido)) {   //opciones por si elige despues de un numero no valido, un NaN      
+          numeroElegido = prompt("No es un número válido. \nDebe ser entre 1 y 20. Intenta de nuevo");
       }
 
-      return x;
+      return numeroElegido;
      
   } else {         // si elige un NaN
 
-      while (isNaN(x)||(x < 1 || x > 20)) {   //opciones por si elige despues de un NaN un numero no válido
-          if (isNaN(x)) {
+      while (isNaN(numeroElegido)||(numeroElegido < 1 || numeroElegido > 20)) {   //opciones por si elige despues de un NaN un numero no válido
+          if (isNaN(numeroElegido)) {
               alert("No es una opcion válida. Por favor, inténtalo de nuevo");               
           }else{
               alert("No es un número válido. \nDebe ser entre 1 y 20. Intenta de nuevo");
           }
-          x = prompt("Ingresa un número válido");             
+          numeroElegido = prompt("Ingresa un número válido");             
           }
       }     
-      return x;     
+      return numeroElegido;     
   }
 
 function quieto(){

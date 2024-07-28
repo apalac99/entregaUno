@@ -13,7 +13,7 @@
 */
 
 
-opcionNumeroMaximo = 10;
+opcionNumeroMaximo = 10; // enytre 0 y que numero sejugará
 
 let intentoNumero = 1;
 let acertar = false;
